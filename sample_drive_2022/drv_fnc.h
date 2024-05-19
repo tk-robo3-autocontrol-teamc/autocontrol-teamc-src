@@ -3,7 +3,7 @@
 
 #include <math.h>
 #include <unistd.h>
-#include "../../EPOS_Linux_Library/include/Definitions.h"
+#include "../EPOS_Linux_Library/include/Definitions.h"
 
 
 // Mechanical values
