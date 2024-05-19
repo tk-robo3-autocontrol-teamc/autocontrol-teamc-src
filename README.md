@@ -89,3 +89,9 @@ sudo cmake ..
 sudo make
 sudo make install
 ```
+
+8. depth
+
+```
+sudo apt install -y libatomic-ops-dev
+```
