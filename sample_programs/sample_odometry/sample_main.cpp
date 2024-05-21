@@ -4,6 +4,10 @@
 #include <iostream>
 #include "drv_fnc.h"
 
+#define Kp 10
+#define Ki 10
+#define Kd 10
+
 int main(int argc, char *argv[])
 {
     Drive drive;
@@ -20,7 +24,8 @@ int main(int argc, char *argv[])
                    = IENCORDER_COUNT * DGEAR_RATIO * IMULTIPLY
                    * IWHEEL_GEAR / IMOTOR_GEAR,
            r = DWHEEL_DIAMETER / 2 / 1000,  // 車輪の半径                   : 41[mm] = 0.041[m]
-           T = DTREAD / 1000;               // トレッド(左右の車輪間の距離)  : 307.6[mm] = 0.3076[m]
+           T = DTREAD / 1000,              // トレッド(左右の車輪間の距離)  : 307.6[mm] = 0.3076[m]
+           tm, v_des, x_des, y_des, e1, e2, u1_int, u2_int, u1, u2, ul, ur, yA, xT, e2_old;
 
     while(1) {
         time1 = std::chrono::system_clock::now();           // 時間取得1
@@ -49,6 +54,30 @@ int main(int argc, char *argv[])
         vy = v * sin(th);
         x = vx * dt + x;                                    // ロボットの位置の計算(世界座標)
         y = vy * dt + y;
+        yA = y - yA;
+        xT = x - xT;
+
+        tm += dt;               //経過時間
+
+    /* cos曲線の経路座標計算*/
+        v_des = 130*(1-exp(-5*tm));         
+        x_des = v_des * tm;
+        y_des = yA/2.0 * (1 - cos((2*3.14*x_des) / xT));
+
+        e1 = v_des - v;     // [mm/s]
+        e2 = y_des - y;     // [mm]
+
+    /* PID制御器の積分項の計算　*/
+        u1_int = Ki * e1;   
+        u2_int = Ki * e2;
+
+        u1 = Kp * e1 + u1_int;
+        u2 = Kp * e2 + Kd * (e2_old - e2)/dt;
+
+        e2_old = e2;
+
+        ul = u1 - T/2 * u2;
+        ur = u1 + T/2 * u2;
 
         break;
     }
