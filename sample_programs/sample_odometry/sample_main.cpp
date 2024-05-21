@@ -7,21 +7,20 @@
 int main(int argc, char *argv[])
 {
     Drive drive;
-    int last_pls_L = 0, last_pls_R = 0, // 時刻1での車輪位置
-        crr_pls_L = 0, crr_pls_R = 0,   // 時刻2での車輪位置
-        delt_pls_L = 0, delt_pls_R = 0; // 時刻2と時刻1の時間での車輪位置の変化量
+    int last_pls_L = 0, last_pls_R = 0,     // 時刻1での車輪位置
+        crr_pls_L = 0, crr_pls_R = 0,       // 時刻2での車輪位置
+        delt_pls_L = 0, delt_pls_R = 0;     // 時刻2と時刻1の時間での車輪位置の変化量
     std::chrono::system_clock::time_point time1, time2;
-    double dt = 0.0,                    // 車輪位置が変わった時間tでの変化量[s]
-           wL, wR,                      // 車輪の角速度
-           v, vth,                      // ロボットの速度、角速度
-           th = 0, x = 0, y = 0,                    // ロボットの位置・姿勢
-           vx, vy,                      // 世界座標系でのロボット速度
-           whl_pls                      // 車輪1回転のエンコーダパルス数 : 201469
+    double dt = 0.0,                        // 車輪位置が変わった時間tでの変化量[s]
+           wL, wR,                          // 車輪の角速度
+           v, vth,                          // ロボットの速度、角速度
+           th = 0, x = 0, y = 0,            // ロボットの位置・姿勢
+           vx, vy,                          // 世界座標系でのロボット速度
+           whl_pls                          // 車輪1回転のエンコーダパルス数 : 201469
                    = IENCORDER_COUNT * DGEAR_RATIO * IMULTIPLY
                    * IWHEEL_GEAR / IMOTOR_GEAR,
            r = DWHEEL_DIAMETER / 2 / 1000,  // 車輪の半径                   : 41[mm] = 0.041[m]
-           T = DTREAD / 1000,              // トレッド(左右の車輪間の距離)  : 307.6[mm] = 0.3076[m]
-           tm, v_des, x_des, y_des, e1, e2, u1_int, u2_int, u1, u2, ul, ur, yA, xT, e2_old;
+           T = DTREAD / 1000;               // トレッド(左右の車輪間の距離)  : 307.6[mm] = 0.3076[m]
 
     while(1) {
         time1 = std::chrono::system_clock::now();           // 時間取得1
@@ -50,32 +49,6 @@ int main(int argc, char *argv[])
         vy = v * sin(th);
         x = vx * dt + x;                                    // ロボットの位置の計算(世界座標)
         y = vy * dt + y;
-        yA = y - yA;
-        xT = x - xT;
-
-        tm += dt;               //経過時間
-
-    /* cos曲線の経路座標計算*/
-        v_des = 130*(1-exp(-5*tm));         
-        x_des = v_des * tm;
-        y_des = yA/2.0 * (1 - cos((2*3.14*x_des) / xT));
-
-        e1 = v_des - v;     // [mm/s]
-        e2 = y_des - y;     // [mm]
-
-    /* PID制御器の積分項の計算　*/
-        u1_int = Ki * e1;   
-        u2_int = Ki * e2;
-
-        u1 = Kp * e1 + u1_int;
-        u2 = Kp * e2 + Kd * (e2_old - e2)/dt;
-
-        e2_old = e2;
-
-        ul = u1 - T/2 * u2;
-        ur = u1 + T/2 * u2;
-
-        break;
     }
 
     return 0;
