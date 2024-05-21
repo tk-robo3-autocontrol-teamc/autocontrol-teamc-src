@@ -4,10 +4,6 @@
 #include <iostream>
 #include "drv_fnc.h"
 
-#define Kp 10
-#define Ki 10
-#define Kd 10
-
 int main(int argc, char *argv[])
 {
     Drive drive;
