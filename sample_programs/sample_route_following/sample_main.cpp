@@ -69,7 +69,7 @@ int main(int argc, char *argv[])
 
     /* PID制御器の積分項の計算　*/
         u1_int = Ki * e1;
-        u2_int = Ki * e2;
+        u2_int = Ki * e2 / dt;
 
         u1 = Kp * e1 + u1_int;
         u2 = Kp * e2 + Kd * (e2_old - e2)/dt;
