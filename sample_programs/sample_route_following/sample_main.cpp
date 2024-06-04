@@ -66,15 +66,14 @@ int main(int argc, char *argv[])
 
         e1 = v_des - v;     // [mm/s]
         e2 = y_des - y;     // [mm]
+        e2_old = e2;
 
     /* PID制御器の積分項の計算　*/
-        u1_int = Ki * e1;
-        u2_int = Ki * e2 / dt;
+        u1_int = Ki * (e1 - v_des);
+        u2_int = Ki * (e2 - y_des);
 
         u1 = Kp * e1 + u1_int;
-        u2 = Kp * e2 + Kd * (e2_old - e2)/dt;
-
-        e2_old = e2;
+        u2 = Kp * e2 + u2_int + Kd * (e2 - e2_old)/dt;
 
         ul = u1 - T/2 * u2;
         ur = u1 + T/2 * u2;
