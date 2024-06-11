@@ -9,7 +9,7 @@ int main(void)
     cv::Mat img;
     int height, width;
 
-    img = cv::imread("img_211208_3.bmp", 1);
+    img = cv::imread("img39.png", 1);
     height = img.rows;
     width = img.cols;
     printf("h=%d w=%d\n", height, width);
