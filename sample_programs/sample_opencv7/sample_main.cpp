@@ -1,3 +1,4 @@
+
 #include <stdio.h>
 #include <opencv2/core.hpp>
 #include <opencv2/highgui/highgui.hpp>
@@ -68,8 +69,6 @@ int main(void)
     cv::imshow("dst_img2", dst_img);
 
     cv::waitKey(0);
-
-    return 0;
 
     return 0;
 }
