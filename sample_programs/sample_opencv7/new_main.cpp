@@ -7,7 +7,7 @@
 #include "realsense.h"
 
 
-std::array<float, 2> main(int argc, char **argv){
+int main(){
     rs2::config cfg;
 	cfg.enable_stream(RS2_STREAM_COLOR, WIDTH, HEIGHT, RS2_FORMAT_BGR8, FPS);   // Color
 	cfg.enable_stream(RS2_STREAM_DEPTH, WIDTH, HEIGHT, RS2_FORMAT_Z16, FPS);    // Depth
@@ -22,7 +22,7 @@ std::array<float, 2> main(int argc, char **argv){
     int threshold_value = 150;
     int xL, yL;
     int xL_max = 0, xL_min, yL_max = 0, yL_min;
-    float x_width = 0, depth = 0;
+    int x_width = 0, depth = 0;
 
     while(true) {
 		camera.getColorFrame(img);	// capture color frame
