@@ -44,7 +44,7 @@ void RsCamera::getColorFrame(cv::Mat& color_image)
 }
 
 // change image coordinate to world coordinate
-void RsCamera::doDeprojectPosition(cv::Mat& depth_image, int x_pix, int y_pix)
+std::array<float, 3> RsCamera::doDeprojectPosition(cv::Mat& depth_image, int x_pix, int y_pix)
 {
   const float pixel[] = { (float)x_pix,(float)y_pix };
 
