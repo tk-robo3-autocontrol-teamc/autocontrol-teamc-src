@@ -26,8 +26,8 @@ int main(int argc, char **argv){
     while(true) {
 		camera.getColorFrame(img);	// capture color frame
 
-        width = img.width;
-        height = img.height;
+        width = img.cols;
+        height = img.rows;
 
 		cv::cvtColor(img, gry_img, cv::COLOR_BGR2GRAY);	
         cv::inRange(gry_img, threshold_value, 255, dst_img);
@@ -91,8 +91,8 @@ int main(int argc, char **argv){
         cv::imshow("img", img);
         cv::imshow("dst_img2", dst_img);
 
-		std::array<float, 3> min_point = camera.doDeprojectPosition(dph_img, x_min, y_min);
-        std::array<float, 3> max_point = camera.doDeprojectPosition(dph_img, x_max, y_max);
+		std::array<float, 3> min_point = camera.doDeprojectPosition(dph_img, xL_min, yL_min);
+        std::array<float, 3> max_point = camera.doDeprojectPosition(dph_img, xL_max, yL_max);
 
         if(min_point.point[2] < 1.0) {
             x_width = max_point.point[0] - min_point.point[0];
