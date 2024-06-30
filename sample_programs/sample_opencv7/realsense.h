@@ -27,7 +27,7 @@ public:
   ~RsCamera();
 
   void getColorFrame(cv::Mat& color_image);
-  void doDeprojectPosition(cv::Mat& depth_image, int x_pix, int y_pix);
+  std::array<float,3> doDeprojectPosition(cv::Mat& depth_image, int x_pix, int y_pix);
   
 
 private:
