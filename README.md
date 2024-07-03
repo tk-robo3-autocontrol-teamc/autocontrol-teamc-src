@@ -1,6 +1,6 @@
 # README
 
-## 環境
+## 動作環境
 
 - OS Edition : Windows 11 Pro
 - OS Version: 23H2
@@ -11,7 +11,7 @@
 sudo apt update -y && sudo apt upgrade -y
 ```
 
-## 1
+## 環境構築
 
 1. gcc, g++, make, gnuplotのインストール
 
