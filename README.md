@@ -16,7 +16,7 @@ sudo apt update -y && sudo apt upgrade -y
 1. gcc, g++, make, gnuplotのインストール
 
 ```
-sudo apt install -y gcc g++ make gnuplot gnuplot-x11
+sudo apt install -y gcc g++ make gnuplot gnuplot-x11 gedit
 ```
 
 2. VcXsrv(Xサーバー)をWindowsにインストール
