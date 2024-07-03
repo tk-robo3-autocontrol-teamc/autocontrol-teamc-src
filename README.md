@@ -67,7 +67,7 @@ wget -O opencv_contrib.zip https://github.com/opencv/opencv_contrib/archive/4.x.
 unzip opencv_contrib.zip
 cd opencv-4.7.0
 sudo mkdir build && cd build
-sudo cmake .. -DOPENCV_EXTRA_MODULES_PATH=$HOME/opencv_contrib-4.x/modules -DCMAKE_INSTALL_PREFIX=/usr -DWITH_GK=ON
+sudo cmake .. -DOPENCV_EXTRA_MODULES_PATH=$HOME/opencv_contrib-4.x/modules -DCMAKE_INSTALL_PREFIX=/usr -DWITH_GK=ON -DBUILD_opencv_xphoto=OFF -DBUILD_opencv_optflow=OFF -DBUILD_opencv_rgbd=OFF
 sudo make -j4
 sudo make install
 ```
