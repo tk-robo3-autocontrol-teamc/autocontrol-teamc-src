@@ -75,7 +75,7 @@ sudo make install
 6. EPOS
 
 ```
-unzip EPOS-Linux-Library-En-20240407.zip
+unzip EPOS-Linux-Library-En-20XXXXXX.zip
 cd EPOS_Linux_Library
 sudo bash ./install.sh
 ```
@@ -83,7 +83,7 @@ sudo bash ./install.sh
 7. Lidar
 
 ```
-unzip YDLidar-SDK TG30-20240407.zip
+unzip YDLidar-SDK TG30-20XXXXXX.zip
 cd YDLidar-SDK-master/build
 sudo cmake ..
 sudo make
