@@ -144,7 +144,7 @@ int main(int argc, char **argv){
 		cv::imshow("PRC_FRAME", prc_img);		// display image
 		cv::imshow("DEPTH_FRAME", dph_img);	// display image
 		
-        const int key = cv::waitKey(1);
+    const int key = cv::waitKey(1);
 
 		if(key == 'q') {
             break;
